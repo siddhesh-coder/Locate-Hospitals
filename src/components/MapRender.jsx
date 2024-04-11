@@ -18,6 +18,7 @@ const MapRender = () => {
             src={worldMap}
             alt={worldMap}
             className="object-cover w-full h-full"
+            loading="lazy"
           />
         </div>
       ) : (
