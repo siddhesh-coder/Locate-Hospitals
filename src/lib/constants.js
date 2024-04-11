@@ -1,3 +1,4 @@
 export const OPENSTREETMAP = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 export const OPENSTREETMAP_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-export const ID = "55535995460-q25o70v4u16madss7jiqq80mb56ph0mi.apps.googleusercontent.com";
+export const DOMAIN_ID = "dev-slponczyvrqae6c5.us.auth0.com";
+export const CLIENT_ID = "8HotBcZtBFs2sn1krkf54y6MPqMAasQv";

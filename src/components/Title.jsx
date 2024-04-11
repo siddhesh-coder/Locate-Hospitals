@@ -1,9 +1,11 @@
 import React, { useContext} from "react";
 import { MyContext } from "../lib/MyContext";
 import { getLocation } from "../lib/utils";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Title = () => {
-  const { user, setLocation } = useContext(MyContext);
+  const { user, isAuthenticated } = useAuth0();
+  const { setLocation } = useContext(MyContext);
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -16,7 +18,7 @@ const Title = () => {
           the world. Just login and get the nearest hospitals.
         </p>
         <div>
-          {user !== null ? (
+          {isAuthenticated ? (
             <>
               <h1 className="font-bold">{`Welcome ${user.name}!`}</h1>
               <button

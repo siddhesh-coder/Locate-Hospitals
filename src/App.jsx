@@ -1,43 +1,23 @@
 import Hero from "./components/Hero";
 import { MyContext } from "./lib/MyContext";
-import { jwtDecode } from "jwt-decode";
-import { ID } from "./lib/constants";
-import React, { useEffect, useState } from "react";
+import { Auth0Provider } from "@auth0/auth0-react";
+import React, { useState } from "react";
+import { CLIENT_ID, DOMAIN_ID } from "./lib/constants";
 
 function App() {
-  const [user, setUser] = useState(null);
   const [location, setLocation] = useState(null);
-
-  function handleCallbackResponse(response) {
-    const userObject = jwtDecode(response.credential);
-    setUser(userObject);
-  }
-
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      window.google &&
-      window.google.accounts
-    ) {
-      window.google.accounts.id.initialize({
-        client_id: ID,
-        callback: handleCallbackResponse,
-      });
-
-      window.google.accounts.id.renderButton(
-        document.getElementById("signInBtn"),
-        {
-          theme: "outline",
-          size: "medium",
-        }
-      );
-    }
-  }, [user]);
-
   return (
-    <MyContext.Provider value={{ user, setUser, location, setLocation }}>
-      <Hero />
-    </MyContext.Provider>
+    <Auth0Provider
+      domain={DOMAIN_ID}
+      clientId={CLIENT_ID}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <MyContext.Provider value={{ location, setLocation }}>
+        <Hero />
+      </MyContext.Provider>
+    </Auth0Provider>
   );
 }
 

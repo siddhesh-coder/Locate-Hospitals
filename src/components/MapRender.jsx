@@ -2,14 +2,16 @@ import React, { useContext } from "react";
 import { MyContext } from "../lib/MyContext";
 import Map from "./Map";
 import worldMap from "../assets/worldMap/worldMap_.webp";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const MapRender = () => {
-  const { user, location } = useContext(MyContext);
+  const { isAuthenticated } = useAuth0();
+  const { location } = useContext(MyContext);
 
   return (
     <>
       <div className="border-t border-gray-100 dark:border-gray-800" />
-      {user !== null
+      {isAuthenticated 
         ? location && <Map lat={location?.latitude} lng={location?.longitude} />
         : ""}
       {location === null ? (
