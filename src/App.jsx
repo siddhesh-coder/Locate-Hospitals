@@ -1,7 +1,7 @@
-/* eslint-disable no-undef */
 import Hero from "./components/Hero";
 import { MyContext } from "./lib/MyContext";
 import { jwtDecode } from "jwt-decode";
+import { ID } from "./lib/constants";
 import React, { useEffect, useState } from "react";
 
 function App() {
@@ -14,16 +14,24 @@ function App() {
   }
 
   useEffect(() => {
-    google.accounts.id.initialize({
-      client_id:
-        "55535995460-q25o70v4u16madss7jiqq80mb56ph0mi.apps.googleusercontent.com",
-      callback: handleCallbackResponse,
-    });
+    if (
+      typeof window !== "undefined" &&
+      window.google &&
+      window.google.accounts
+    ) {
+      window.google.accounts.id.initialize({
+        client_id: ID,
+        callback: handleCallbackResponse,
+      });
 
-    google.accounts.id.renderButton(document.getElementById("signInBtn"), {
-      theme: "outline",
-      size: "medium",
-    });
+      window.google.accounts.id.renderButton(
+        document.getElementById("signInBtn"),
+        {
+          theme: "outline",
+          size: "medium",
+        }
+      );
+    }
   }, [user]);
 
   return (
